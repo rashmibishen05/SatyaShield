@@ -1,4 +1,5 @@
 # SatyaShield: AI-Powered Forensic Suite 🛡️
+[🚀 Live Application](https://satyashield.onrender.com/)
 
 **SatyaShield** is an advanced, high-performance forensic toolkit designed to defend truth in the era of AI. Built for hackathons and professional security analysts, it provides a comprehensive suite of tools to verify facts, detect deepfakes, and stop digital scams using the power of **Google Gemini 2.0 Flash**.
 
@@ -23,7 +24,7 @@
 | **AI Engine** | Google Gemini 2.0 Flash (`google-genai`) |
 | **Forensics** | OpenCV, NumPy, TLDextract, PIL |
 | **Frontend** | HTML5, Modern CSS (Glassmorphism), Vanilla JavaScript |
-| **Deployment** | Gunicorn, Procfile |
+| **Deployment** | Gunicorn, Procfile, Render |
 
 ---
 
@@ -31,7 +32,7 @@
 
 ### 1. Clone the repository
 ```bash
-git clone https://github.com/rashmibishen05/SatyaShield-Final.git
+git clone https://github.com/rashmibishen05/SatyaShield.git
 cd SatyaShield
 ```
 
