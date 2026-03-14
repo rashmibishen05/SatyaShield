@@ -4,10 +4,8 @@ opencv-python-headless
 numpy
 pillow
 scikit-learn
-tensorflow-cpu
 requests
 qrcode
-pyzbar
 tldextract
 google-genai
 python-dotenv
