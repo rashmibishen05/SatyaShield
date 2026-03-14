@@ -1,5 +1,7 @@
 <h1 align="center"> SatyaShield: AI-Powered Forensic Suite 🛡️</h1>
-[🚀 Live Application](https://satyashield.onrender.com/)
+<p align="center">
+<a href="https://satyashield.onrender.com/">Live Demo</a>
+</p>
 
 **SatyaShield** is an advanced, high-performance forensic toolkit designed to defend truth in the era of AI. Built for hackathons and professional security analysts, it provides a comprehensive suite of tools to verify facts, detect deepfakes, and stop digital scams using the power of **Google Gemini 2.0 Flash**.
 
