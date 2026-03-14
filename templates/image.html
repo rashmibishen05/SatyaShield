@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deepfake Image - SatyaShield</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="bg-mesh"></div>
+    <div class="bg-dots"></div>
+    <div class="container">
+        <nav class="glass-nav">
+            <div class="logo">SatyaShield</div>
+            <a href="/" class="nav-btn">Back to Home</a>
+        </nav>
+
+        <header>
+            <h1>Image Forensic Analyze</h1>
+            <p class="subtitle">Detecting AI-generated manipulations and deepfakes.</p>
+        </header>
+
+        <div class="single-feature-container" style="max-width: 800px; margin: 0 auto;">
+            <div class="card">
+                <div class="card-title">
+                    <i class="fas fa-image"></i>
+                    Image Detector
+                </div>
+                <div class="input-group">
+                    <label for="imageFile" class="file-label">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <span id="imageFileName">Choose Image</span>
+                    </label>
+                    <input type="file" id="imageFile" accept="image/*" style="display:none" onchange="updateFileName(this, 'imageFileName')">
+                    <button onclick="detectImage(this)">
+                        <span class="loader"></span>
+                        Analyze Image
+                    </button>
+                </div>
+                <div id="imageResult" class="result-area">Results will appear here...</div>
+            </div>
+        </div>
+
+        <footer>
+            <div class="footer-content">
+                <p>&copy; 2024 SatyaShield. Advanced Forensic Protection.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <script>
+        function updateFileName(input, targetId) {
+            const fileName = input.files[0] ? input.files[0].name : 'Choose File';
+            document.getElementById(targetId).textContent = fileName;
+        }
+
+        async function detectImage(btn) {
+            const fileInput = document.getElementById('imageFile');
+            if (!fileInput.files[0]) return alert('Please select an image');
+            const formData = new FormData();
+            formData.append('image', fileInput.files[0]);
+            apiCall('/detect-image', formData, false, btn, 'imageResult');
+        }
+    </script>
+</body>
+</html>

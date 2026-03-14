@@ -1,0 +1,15 @@
+.env
+__pycache__/
+*.pyc
+venv/
+.vscode/
+static/uploads/
+*.mp4
+*.jpg
+*.png
+*.jpeg
+.DS_Store
+*.log
+*.bak
+.idea/
+*.sqlite3

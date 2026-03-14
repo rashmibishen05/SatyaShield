@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SatyaShield - Secure Your Digital World</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="landing-page">
+    <div class="bg-mesh"></div>
+    <div class="bg-dots"></div>
+    <div class="container">
+        <nav class="glass-nav">
+            <div class="logo">SatyaShield</div>
+            <a href="/dashboard" class="nav-btn">Full Suite</a>
+        </nav>
+        <section class="hero">
+            <h1 class="hero-title">Defend Truth In The <span class="gradient-text">Era Of AI.</span></h1>
+            <p class="hero-subtitle">The ultimate forensic toolkit to verify facts, detect deepfakes, and stop scams.</p>
+            
+            <section id="features" class="feature-selection">
+                <div class="feature-grid">
+                    <!-- URL -->
+                    <a href="/url" class="feature-card">
+                        <div class="icon-box"><i class="fas fa-link"></i></div>
+                        <h3>Check URL</h3>
+                        <p>Scan links for phishing.</p>
+                    </a>
+                    <!-- Whatsapp -->
+                    <a href="/message" class="feature-card">
+                        <div class="icon-box"><i class="fab fa-whatsapp"></i></div>
+                        <h3>Message Scam</h3>
+                        <p>Detect social scams.</p>
+                    </a>
+                    <!-- Image -->
+                    <a href="/image" class="feature-card">
+                        <div class="icon-box"><i class="fas fa-image"></i></div>
+                        <h3>Deepfake Image</h3>
+                        <p>Analyze pixel patterns.</p>
+                    </a>
+                    <!-- QR -->
+                    <a href="/qr" class="feature-card">
+                        <div class="icon-box"><i class="fas fa-qrcode"></i></div>
+                        <h3>Secure QR</h3>
+                        <p>Analyze QR payloads.</p>
+                    </a>
+                    <!-- Video -->
+                    <a href="/video" class="feature-card">
+                        <div class="icon-box"><i class="fas fa-video"></i></div>
+                        <h3>Video Authenticity</h3>
+                        <p>Verify temporal consistency.</p>
+                    </a>
+                    <!-- Text (Moved to Last) -->
+                    <a href="/text" class="feature-card">
+                        <div class="icon-box"><i class="fas fa-file-alt"></i></div>
+                        <h3>Verify Text</h3>
+                        <p>AI Fact-checking.</p>
+                    </a>
+                </div>
+            </section>
+
+            <div class="hero-actions">
+                <a href="/dashboard" class="primary-btn"><i class="fas fa-rocket"></i> Full Dashboard</a>
+            </div>
+            
+            <!-- Quick Stats -->
+            <div class="system-stats">
+                <div class="stat-item">
+                    <span class="stat-value">Gemini 2.0</span>
+                    <span class="stat-label">Neural Engine</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value">98.4%</span>
+                    <span class="stat-label">Accuracy</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value">< 1.2s</span>
+                    <span class="stat-label">Latency</span>
+                </div>
+            </div>
+        </section>
+        <!-- Tech Stack Section -->
+        <section class="tech-stack">
+            <p>POWERED BY INDUSTRY LEADERS</p>
+            <div class="brand-icons">
+                <span><i class="fab fa-google"></i> Google Cloud</span>
+                <span><i class="fab fa-python"></i> Python OS</span>
+                <span><i class="fas fa-brain"></i> Neural Lab</span>
+                <span><i class="fas fa-microchip"></i> Gemini Flash</span>
+            </div>
+        </section>
+        <footer>
+            <div class="footer-content">
+                <p>&copy; 2026 SatyaShield. Advanced Forensic Protection.</p>
+                <div class="footer-links">
+                    <span><i class="fas fa-shield-alt"></i> Secure</span>
+                    <span><i class="fas fa-bolt"></i> Fast</span>
+                    <span><i class="fas fa-brain"></i> Intelligent</span>
+                </div>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

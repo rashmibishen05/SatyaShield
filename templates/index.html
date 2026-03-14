@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SatyaShield - Fact Detection System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="bg-mesh"></div>
+    <div class="bg-dots"></div>
+    <div class="container">
+        <nav class="glass-nav">
+            <div class="logo">SatyaShield</div>
+            <a href="/" class="nav-btn">Back to Home</a>
+        </nav>
+        <header>
+            <h1>Full Forensic Suite</h1>
+            <p class="subtitle">All specialized forensic tools in one single dashboard.</p>
+        </header>
+        <div class="detector-grid">
+            
+            <div class="card">
+                <div class="card-title">
+                    <i class="fas fa-link"></i>
+                    URL Detector
+                </div>
+                <div class="input-group">
+                    <input type="text" id="urlInput" placeholder="Enter URL (e.g., https://safe-website.com)">
+                    <button onclick="detectURL(this)">
+                        <span class="loader"></span>
+                        Check URL
+                    </button>
+                </div>
+                <div id="urlResult" class="result-area">Results will appear here...</div>
+            </div>
+            <div class="card">
+                <div class="card-title">
+                    <i class="fab fa-whatsapp"></i>
+                    WhatsApp Scam Detector
+                </div>
+                <div class="input-group">
+                    <textarea id="msgInput" placeholder="Paste WhatsApp message here..."></textarea>
+                    <button onclick="detectMessage(this)">
+                        <span class="loader"></span>
+                        Check Message
+                    </button>
+                </div>
+                <div id="msgResult" class="result-area">Results will appear here...</div>
+            </div>
+            <div class="card">
+                <div class="card-title">
+                    <i class="fas fa-image"></i>
+                    Image Detector
+                </div>
+                <div class="input-group">
+                    <label for="imageFile" class="file-label">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <span id="imageFileName">Upload Image</span>
+                    </label>
+                    <input type="file" id="imageFile" accept="image/*" style="display:none" onchange="updateFileName(this, 'imageFileName')">
+                    <button onclick="detectImage(this)">
+                        <span class="loader"></span>
+                        Verify Image
+                    </button>
+                </div>
+                <div id="imageResult" class="result-area">Results will appear here...</div>
+            </div>
+            <div class="card">
+                <div class="card-title">
+                    <i class="fas fa-qrcode"></i>
+                    Secure QR Scanner
+                </div>
+                <div class="input-group">
+                    <label for="qrFile" class="file-label">
+                        <i class="fas fa-qrcode"></i>
+                        <span id="qrFileName">Upload QR Code</span>
+                    </label>
+                    <input type="file" id="qrFile" accept="image/*" style="display:none" onchange="updateFileName(this, 'qrFileName')">
+                    <button onclick="detectQR(this)">
+                        <span class="loader"></span>
+                        Read QR
+                    </button>
+                </div>
+                <div id="qrResult" class="result-area">Results will appear here...</div>
+            </div>
+            <div class="card">
+                <div class="card-title">
+                    <i class="fas fa-video"></i>
+                    Video Authenticity
+                </div>
+                <div class="input-group">
+                    <label for="videoFile" class="file-label">
+                        <i class="fas fa-film"></i>
+                        <span id="videoFileName">Choose Video</span>
+                    </label>
+                    <input type="file" id="videoFile" accept="video/*" style="display:none" onchange="updateFileName(this, 'videoFileName')">
+                    <button onclick="detectVideo(this)">
+                        <span class="loader"></span>
+                        Verify Video
+                    </button>
+                </div>
+                <div id="videoResult" class="result-area">Results will appear here...</div>
+            </div>
+            <div class="card">
+                <div class="card-title">
+                    <i class="fas fa-file-alt"></i>
+                    Verify Text
+                </div>
+                <div class="input-group">
+                    <textarea id="newsInput" placeholder="Paste statement to verify..."></textarea>
+                    <button onclick="detectNews(this)">
+                        <span class="loader"></span>
+                        Verify Fact
+                    </button>
+                </div>
+                <div id="newsResult" class="result-area">Results will appear here...</div>
+            </div>
+        </div>
+        
+        <footer>
+            <div class="footer-content">
+                <p>&copy; 2024 SatyaShield. Powered by Gemini AI & Advanced Forensics.</p>
+                <div class="footer-links">
+                    <span><i class="fas fa-shield-alt"></i> Secure</span>
+                    <span><i class="fas fa-bolt"></i> Fast</span>
+                    <span><i class="fas fa-brain"></i> Intelligent</span>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <script>
+        function updateFileName(input, targetId) {
+            const fileName = input.files[0] ? input.files[0].name : 'Choose File';
+            document.getElementById(targetId).textContent = fileName;
+        }
+
+        function detectNews(btn) {
+            const news = document.getElementById('newsInput').value;
+            if (!news) return alert('Please enter some text');
+            apiCall('/detect-news', { news: news }, true, btn, 'newsResult');
+        }
+
+        function detectURL(btn) {
+            const url = document.getElementById('urlInput').value;
+            if (!url) return alert('Please enter a URL');
+            apiCall('/detect-url', { url: url }, true, btn, 'urlResult');
+        }
+
+        function detectMessage(btn) {
+            const msg = document.getElementById('msgInput').value;
+            if (!msg) return alert('Please enter a message');
+            apiCall('/detect-message', { message: msg }, true, btn, 'msgResult');
+        }
+
+        function detectImage(btn) {
+            const fileInput = document.getElementById('imageFile');
+            if (!fileInput.files[0]) return alert('Please select an image');
+            
+            const formData = new FormData();
+            formData.append('image', fileInput.files[0]);
+            apiCall('/detect-image', formData, false, btn, 'imageResult');
+        }
+
+        function detectQR(btn) {
+            const fileInput = document.getElementById('qrFile');
+            if (!fileInput.files[0]) return alert('Please select a QR code image');
+            
+            const formData = new FormData();
+            formData.append('qr', fileInput.files[0]);
+            apiCall('/detect-qr', formData, false, btn, 'qrResult');
+        }
+
+        function detectVideo(btn) {
+            const fileInput = document.getElementById('videoFile');
+            if (!fileInput.files[0]) return alert('Please select a video');
+            
+            const formData = new FormData();
+            formData.append('video', fileInput.files[0]);
+            apiCall('/detect-video', formData, false, btn, 'videoResult');
+        }
+    </script>
+</body>
+</html>

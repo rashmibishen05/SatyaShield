@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Message Scam - SatyaShield</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="bg-mesh"></div>
+    <div class="bg-dots"></div>
+    <div class="container">
+        <nav class="glass-nav">
+            <div class="logo">SatyaShield</div>
+            <a href="/" class="nav-btn">Back to Home</a>
+        </nav>
+
+        <header>
+            <h1>Message Scam Detector</h1>
+            <p class="subtitle">Detect social engineering and phishing in WhatsApp messages.</p>
+        </header>
+
+        <div class="single-feature-container" style="max-width: 800px; margin: 0 auto;">
+            <div class="card">
+                <div class="card-title">
+                    <i class="fab fa-whatsapp"></i>
+                    Message Analyzer
+                </div>
+                <div class="input-group">
+                    <textarea id="msgInput" placeholder="Paste message content..."></textarea>
+                    <button onclick="detectMessage(this)">
+                        <span class="loader"></span>
+                        Check Scam
+                    </button>
+                </div>
+                <div id="msgResult" class="result-area">Results will appear here...</div>
+            </div>
+        </div>
+
+        <footer>
+            <div class="footer-content">
+                <p>&copy; 2024 SatyaShield. Advanced Forensic Protection.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <script>
+        async function detectMessage(btn) {
+            const msg = document.getElementById('msgInput').value;
+            if (!msg) return alert('Please enter a message');
+            apiCall('/detect-message', { message: msg }, true, btn, 'msgResult');
+        }
+    </script>
+</body>
+</html>
