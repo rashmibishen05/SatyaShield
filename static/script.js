@@ -17,21 +17,67 @@ async function apiCall(endpoint, body, isJson = true, button, resultId) {
         }
 
         const response = await fetch(endpoint, options);
-        const data = await response.json();
-        
-        resultArea.innerText = data.result;
-        
-        const lowers = data.result.toLowerCase();
-        if (lowers.includes('✅') || lowers.includes('authentic') || lowers.includes('true') || lowers.includes('normal') || lowers.includes('safe')) {
-            resultArea.classList.add('success');
-        } else if (lowers.includes('🚨') || lowers.includes('fake') || lowers.includes('false') || lowers.includes('manipulated') || lowers.includes('scam') || lowers.includes('suspicious')) {
+
+        if (!response.ok) {
+            const errData = await response.json().catch(() => ({ result: `Server error: ${response.status}` }));
+            resultArea.innerText = errData.result || `Server error: ${response.status}`;
             resultArea.classList.add('danger');
-        } else if (lowers.includes('⚠️') || lowers.includes('caution') || lowers.includes('unverified') || lowers.includes('warning')) {
-            resultArea.classList.add('warning');
+            return;
         }
+
+        const data = await response.json();
+        const resultText = data.result || 'No result returned.';
+        resultArea.innerText = resultText;
+
+        const lower = resultText.toLowerCase();
+
+        // --- PRIORITY 1: EMOJI-BASED COLORING (Exact Match) ---
+        if (resultText.includes('🚨') || resultText.includes('❌')) {
+            resultArea.classList.add('danger');
+        } else if (resultText.includes('⚠️') || resultText.includes('🔍')) {
+            resultArea.classList.add('warning');
+        } else if (resultText.includes('✅')) {
+            resultArea.classList.add('success');
+        } 
+        // --- PRIORITY 2: KEYWORD-BASED FALLBACK ---
+        else {
+            const isDanger =
+                lower.includes('fake') ||
+                lower.includes('false') ||
+                lower.includes('manipulated') ||
+                lower.includes('scam') ||
+                lower.includes('high risk') ||
+                lower.includes('phishing') ||
+                lower.includes('malicious') ||
+                lower.includes('deepfake');
+
+            const isWarning =
+                lower.includes('suspicious') ||
+                lower.includes('caution') ||
+                lower.includes('unverified') ||
+                lower.includes('warning') ||
+                lower.includes('pending');
+
+            const isSuccess =
+                lower.includes('authentic') ||
+                lower.includes('trusted') ||
+                lower.includes('true') ||
+                lower.includes('normal') ||
+                lower.includes('safe') ||
+                lower.includes('no obvious manipulation');
+
+            if (isDanger) {
+                resultArea.classList.add('danger');
+            } else if (isWarning) {
+                resultArea.classList.add('warning');
+            } else if (isSuccess) {
+                resultArea.classList.add('success');
+            }
+        }
+
     } catch (error) {
-        console.error(error);
-        resultArea.innerText = 'Error processing request.';
+        console.error('Fetch error:', error);
+        resultArea.innerText = 'Network error: Could not connect to the server.';
         resultArea.classList.add('danger');
     } finally {
         loader.style.display = 'none';

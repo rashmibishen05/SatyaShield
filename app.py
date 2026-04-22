@@ -13,7 +13,28 @@ from whtapp_msg_detector import detect_whatsapp_scam
 from fact_checker import check_claim
 
 app = Flask(__name__)
+app.config['MAX_CONTENT_LENGTH'] = 50 * 1024 * 1024  # 50 MB max upload size
 logging.basicConfig(level=logging.INFO)
+
+# Ensure JSON responses can contain emojis
+app.config['JSON_AS_ASCII'] = False
+
+
+@app.errorhandler(413)
+def too_large(e):
+    return jsonify({"result": "❌ File too large. Maximum upload size is 50MB."}), 413
+
+
+@app.errorhandler(400)
+def bad_request(e):
+    return jsonify({"result": f"❌ Bad request: {str(e)}"}), 400
+
+
+@app.errorhandler(500)
+def server_error(e):
+    return jsonify({"result": f"❌ Server error: {str(e)}"}), 500
+
+
 
 @app.route("/")
 def landing():
